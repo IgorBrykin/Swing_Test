@@ -1,6 +1,7 @@
 package WindowStandart;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class GameWindow extends JFrame {
@@ -8,6 +9,9 @@ public class GameWindow extends JFrame {
     private static final int Y_POS = 400;
     private static final int WIND_WIDTH = 440;
     private static final int WIND_HEIGHT = 440;
+
+    Map map;
+
 
     public GameWindow() {
         setTitle("Hello Men!!! How do you do?"); // заголовок
@@ -23,22 +27,30 @@ public class GameWindow extends JFrame {
         устанавливает координаты формы и ее размер в пикселях
         для корректного определения и для удобства лучше заводить константы,
         которые можно менять, а так же для чистоты кода
-        */
         // setLocation(X_POS,Y_POS); можно определять отдельно
         // setSize(WIND_WIDTH,WIND_HEIGHT);
+        для расположения необходимо добавить add(); он наследник компонента
+        соответственно мы добавляем его
+        // add(btnExit); // добавятся обе, но одна ляжет на вторую  необходим менеджер размещений
+        //add(btnStart); // добовляется кнопка на все окно
+        // добавляем кнопки на панель, а затем в окно добавляем панель
+         */
 
         JButton btnStart = new JButton("Start");
         JButton btnExit = new JButton("Exit");
-        /*
-        для расположения необходимо добавить add(); он наследник компонента
-        соответственно мы добавляем его
-         */
-        add(btnStart);
-        setVisible(true);
-        /*
-        показывает полученную форму на экране
-        установить свойство в видимость "true"
-        */
+        JPanel panelButtons = new JPanel(new GridLayout(1, 2));
+        // создали панельку, GridLayout(1, 2) которая состоит из 1 колонки и 2 столбов
+        // panelButtons.add(btnExit,BorderLayout.WEST);
+        // panelButtons.add(btnStart, BorderLayout.EAST);
+        // располложили на panelButtons по кнопке
+        panelButtons.add(btnStart);
+        panelButtons.add(btnExit); // АВТОМАТИЧЕСКИ ОПРЕДЕЛЯЕТСЯ, не кидается Ex
+        map = new Map();    // создаем новую MAP
+
+        add(map, BorderLayout.CENTER);
+        add(panelButtons, BorderLayout.SOUTH); // РАСПОЛОЖИЛИ КНОПКИ НА ЮГЕ КНОПКИ, КОТОРЫЕ ЛЕГЛИ НА BorderLayout.SOUTH
+        setVisible(true);//показывает полученную форму на экране установить свойство в видимость "true"
+
 
     }
 

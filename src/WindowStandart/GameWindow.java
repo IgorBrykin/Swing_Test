@@ -2,6 +2,7 @@ package WindowStandart;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 public class GameWindow extends JFrame {
@@ -10,11 +11,11 @@ public class GameWindow extends JFrame {
     private static final int WIND_WIDTH = 440;
     private static final int WIND_HEIGHT = 440;
 
-    Map map;
-
+    private Map map;
+    private Settings settings;
 
     public GameWindow() {
-        setTitle("Hello Men!!! How do you do?"); // заголовок
+        setTitle("Hello Men!!! Go, go, go"); // заголовок
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         /*
@@ -45,14 +46,31 @@ public class GameWindow extends JFrame {
         // располложили на panelButtons по кнопке
         panelButtons.add(btnStart);
         panelButtons.add(btnExit); // АВТОМАТИЧЕСКИ ОПРЕДЕЛЯЕТСЯ, не кидается Ex
+        btnExit.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        btnStart.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                settings.setVisible(true); // вызываем окно settings
+            }
+        });
         map = new Map();    // создаем новую MAP
 
-        add(map, BorderLayout.CENTER);
+        settings = new Settings(this);  // 1. Создаем settings 2. Передаем себя сетингс мог акцентрироваться
+
+        add(map, BorderLayout.CENTER);// добовляем ее в центр, но по дифолту она и должна быть там
         add(panelButtons, BorderLayout.SOUTH); // РАСПОЛОЖИЛИ КНОПКИ НА ЮГЕ КНОПКИ, КОТОРЫЕ ЛЕГЛИ НА BorderLayout.SOUTH
         setVisible(true);//показывает полученную форму на экране установить свойство в видимость "true"
 
 
     }
 
+    void start(int gameMode, int fieldSizeX, int fieldSizeY, int winLength) {
+        map.startNewGame(gameMode, fieldSizeX, fieldSizeY, winLength);
+    }
 
 }

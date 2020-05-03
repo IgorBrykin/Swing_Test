@@ -15,7 +15,7 @@ public class GameWindow extends JFrame {
     private Settings settings;
 
     public GameWindow() {
-        setTitle("Hello Men!!! Go, go, go"); // заголовок
+        setTitle("Hello Men!!! Go, game Tic Tac Toe"); // заголовок
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         /*
